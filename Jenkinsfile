@@ -17,8 +17,12 @@ pipeline {
                 script {
                     if( fileExists ('tasks/test.os') ){
                         bat 'chcp 65001 > nul && oscript tasks/test.os'
-                        junit 'tests.xml'
-                        junit 'bdd-log.xml'
+                        if( fileExists ('tests.xml') ){
+                            junit 'tests.xml'
+                        }
+                        if( fileExists ('bdd-log.xml') ){
+                            junit 'bdd-log.xml'
+                        }
                     }
                     else
                         echo 'no testing task'
